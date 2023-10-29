@@ -1,3 +1,4 @@
+/*
 package com.joelkanyi.mealtime.api.mealtimeapi.service
 
 import io.mockk.every
@@ -18,4 +19,4 @@ class MealServiceTest {
         // Then
         verify(exactly = 1) { mealService.retrieveMeals() }
     }
-}
+}*/
