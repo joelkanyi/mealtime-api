@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class MockMealDataSourceTest {
-    private val mockMealDataSource = MockMealDataSource()
+    private val mockMealDataSource = MockMealRepository()
 
     @Test
     fun `should provide a collection of meals`() {

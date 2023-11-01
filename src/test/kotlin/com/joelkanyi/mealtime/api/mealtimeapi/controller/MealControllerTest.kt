@@ -2,7 +2,7 @@
 package com.joelkanyi.mealtime.api.mealtimeapi.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.joelkanyi.mealtime.api.mealtimeapi.model.Meal
+import com.joelkanyi.mealtime.api.mealtimeapi.meal.model.Meal
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
