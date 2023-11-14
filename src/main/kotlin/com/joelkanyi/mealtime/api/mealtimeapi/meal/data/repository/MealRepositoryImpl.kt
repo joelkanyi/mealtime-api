@@ -101,6 +101,9 @@ class MealRepositoryImpl : MealRepository {
     }
 
     override fun deleteMeal(mealId: String) {
+        cookingInstructionTable.deleteWhere { cookingInstructionTable.meal_id eq mealId }
+        ingredientTable.deleteWhere { ingredientTable.meal_id eq mealId }
+        reviewTable.deleteWhere { reviewTable.meal_id eq mealId }
         mealTable.deleteWhere { mealTable.meal_id eq mealId }
     }
 }
