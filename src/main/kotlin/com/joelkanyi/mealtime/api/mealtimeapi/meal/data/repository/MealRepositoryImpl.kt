@@ -120,6 +120,7 @@ class MealRepositoryImpl : MealRepository {
             emptyList()
         }
 
+        // check even if it some matching characters
         val mealsFromName = if (name != null) {
             mealTable
                 .select { mealTable.meal_name like name }

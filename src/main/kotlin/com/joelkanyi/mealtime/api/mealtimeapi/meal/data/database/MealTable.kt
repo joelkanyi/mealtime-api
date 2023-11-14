@@ -11,15 +11,15 @@ object MealTable : Table("meal") {
     val user_id: Column<String> = varchar("user_id", 255) references UserTable.id
     val meal_id: Column<String> = varchar("meal_id", 255)
     val meal_name: Column<String> = varchar("meal_name", 255)
-    val meal_description: Column<String> = varchar("meal_description", 255)
+    val meal_description: Column<String?> = varchar("meal_description", 255).nullable()
     val meal_category: Column<String> = varchar("meal_category", 255)
-    val meal_cooking_time: Column<Int> = integer("meal_cooking_time")
-    val meal_serving: Column<Int> = integer("meal_serving")
-    val meal_cooking_difficulty: Column<String> = varchar("meal_cooking_difficulty", 255)
-    val meal_calories: Column<Double> = double("meal_calories")
+    val meal_cooking_time: Column<Int?> = integer("meal_cooking_time").nullable()
+    val meal_serving: Column<Int?> = integer("meal_serving").nullable()
+    val meal_cooking_difficulty: Column<String?> = varchar("meal_cooking_difficulty", 255).nullable()
+    val meal_calories: Column<Double?> = double("meal_calories").nullable()
     val meal_image_url: Column<String> = varchar("meal_image_url", 255)
-    val meal_recipe_price: Column<Double> = double("meal_recipe_price")
-    val meal_youtube_video_url: Column<String> = varchar("meal_youtube_video_url", 255)
+    val meal_recipe_price: Column<Double?> = double("meal_recipe_price").nullable()
+    val meal_youtube_video_url: Column<String?> = varchar("meal_youtube_video_url", 255).nullable()
     override val primaryKey = PrimaryKey(meal_id, name = "meal_pk")
 }
 
@@ -43,7 +43,7 @@ fun rowToMealDetailsDto(
     serving = mealDetailsDtoRow[MealTable.meal_serving],
     cookingDifficulty = mealDetailsDtoRow[MealTable.meal_cooking_difficulty],
     calories = mealDetailsDtoRow[MealTable.meal_calories],
-    recipePrice = mealDetailsDtoRow[MealTable.meal_recipe_price].toDouble(),
+    recipePrice = mealDetailsDtoRow[MealTable.meal_recipe_price]?.toDouble(),
     imageUrl = mealDetailsDtoRow[MealTable.meal_image_url],
     youtubeUrl = mealDetailsDtoRow[MealTable.meal_youtube_video_url],
     reviewDtos = reviewDtos,
