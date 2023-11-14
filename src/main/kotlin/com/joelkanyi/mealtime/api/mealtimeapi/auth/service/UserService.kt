@@ -1,10 +1,7 @@
 package com.joelkanyi.mealtime.api.mealtimeapi.auth.service
 
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.LoginRequest
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.AuthenticationResponse
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.RegisterRequest
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.repository.UserRepository
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.User
+import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
@@ -20,7 +17,7 @@ class UserService(
         return userRepository.login(loginRequest)
     }
 
-    fun getUser(userId: String): User {
+    fun getUser(userId: String): UserData {
         return userRepository.getUser(userId)
     }
 

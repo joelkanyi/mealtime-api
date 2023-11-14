@@ -3,6 +3,7 @@ package com.joelkanyi.mealtime.api.mealtimeapi.auth.data.repository
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.database.UserTable
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.database.rowToUser
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.*
+import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.UserData.Companion.toUserData
 import com.joelkanyi.mealtime.api.mealtimeapi.config.JwtService
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -50,10 +51,10 @@ class UserRepositoryImpl(
         }
 
         val jwtToken = jwtService.generateToken(user)
-        val userFromDb = findByEmail(registerRequest.email)
+        val userFromDb = findByEmail(registerRequest.email) ?: throw NoSuchElementException("Could not find a user with email ${registerRequest.email}")
         return AuthenticationResponse(
             jwtToken,
-            userFromDb,
+            userFromDb.toUserData(),
         )
     }
 
@@ -67,15 +68,15 @@ class UserRepositoryImpl(
         val user = findByEmail(loginRequest.email)
             ?: throw NoSuchElementException("Could not find a user with email ${loginRequest.email}")
         val jwtToken = jwtService.generateToken(user)
-        val userFromDb = findByEmail(loginRequest.email)
+        val userFromDb = findByEmail(loginRequest.email) ?: throw NoSuchElementException("Could not find a user with email ${loginRequest.email}")
         return AuthenticationResponse(
             jwtToken,
-            userFromDb,
+            userFromDb.toUserData(),
         )
     }
 
-    override fun getUser(userId: String): User {
-        return userTable.select { userTable.id eq userId }.map { rowToUser(it) }.firstOrNull()
+    override fun getUser(userId: String): UserData {
+        return userTable.select { userTable.id eq userId }.map { rowToUser(it) }.firstOrNull()?.toUserData()
             ?: throw NoSuchElementException("Could not find a user with id $userId")
     }
 
@@ -86,7 +87,7 @@ class UserRepositoryImpl(
         val jwtToken = jwtService.generateToken(userDetails)
         return AuthenticationResponse(
             jwtToken,
-            userDetails,
+            userDetails.toUserData(),
         )
     }
 }

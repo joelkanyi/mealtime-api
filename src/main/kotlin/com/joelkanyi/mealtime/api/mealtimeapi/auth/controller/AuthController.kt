@@ -28,7 +28,7 @@ class AuthController(
     }
 
     @GetMapping("user")
-    fun getUser(userId: String): User {
+    fun getUser(userId: String): UserData {
         return userService.getUser(userId)
     }
 
