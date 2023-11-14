@@ -110,8 +110,8 @@ class MealRepositoryImpl : MealRepository {
     override fun searchMeals(category: String?, name: String?, ingredient: String?): List<Meal> {
         return mealTable
             .select {
-                mealTable.meal_name.like("%$name%") and
-                        mealTable.meal_category.like("%$category%") and
+                mealTable.meal_name.like("%$name%") or
+                        mealTable.meal_category.like("%$category%") or
                         ingredientTable.ingredient_name.like("%$ingredient%")
             }
             .map(::rowToMealDto)
