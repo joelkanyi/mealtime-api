@@ -108,12 +108,34 @@ class MealRepositoryImpl : MealRepository {
     }
 
     override fun searchMeals(category: String?, name: String?, ingredient: String?): List<Meal> {
-        return mealTable
-            .select {
-                mealTable.meal_name.like("%$name%") or
-                        mealTable.meal_category.like("%$category%") or
-                        ingredientTable.ingredient_name.like("%$ingredient%")
-            }
-            .map(::rowToMealDto)
+        val mealsFromIngredients = if (ingredient != null) {
+            val mealIds = ingredientTable
+                .select { ingredientTable.ingredient_name like ingredient }
+                .map { it[ingredientTable.meal_id] }
+
+            mealTable
+                .select { mealTable.meal_id inList mealIds }
+                .map(::rowToMealDto)
+        } else {
+            emptyList()
+        }
+
+        val mealsFromName = if (name != null) {
+            mealTable
+                .select { mealTable.meal_name like name }
+                .map(::rowToMealDto)
+        } else {
+            emptyList()
+        }
+
+        val mealsFromCategory = if (category != null) {
+            mealTable
+                .select { mealTable.meal_category like category }
+                .map(::rowToMealDto)
+        } else {
+            emptyList()
+        }
+
+        return mealsFromIngredients + mealsFromName + mealsFromCategory
     }
 }
