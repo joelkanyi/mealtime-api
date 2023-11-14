@@ -39,6 +39,6 @@ class SecurityConfig(
             .and()
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
-            .build()
+            .orBuild
     }
 }
