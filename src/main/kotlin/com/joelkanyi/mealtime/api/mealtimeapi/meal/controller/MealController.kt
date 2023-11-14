@@ -32,4 +32,17 @@ class MealController(
     fun deleteMeal(@PathVariable mealId: String) {
         mealService.deleteMeal(mealId)
     }
+
+    @GetMapping("/search")
+    fun searchMeals(
+        category: String?,
+        name: String?,
+        ingredient: String?,
+    ): List<Meal> {
+        return mealService.searchMeals(
+            category,
+            name,
+            ingredient
+        )
+    }
 }

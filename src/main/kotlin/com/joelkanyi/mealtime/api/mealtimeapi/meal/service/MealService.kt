@@ -19,4 +19,8 @@ class MealService(
     fun deleteMeal(mealId: String) {
         mealRepository.deleteMeal(mealId)
     }
+
+    fun searchMeals(category: String?, name: String?, ingredient: String?): List<Meal> {
+        return mealRepository.searchMeals(category, name, ingredient)
+    }
 }

@@ -106,4 +106,14 @@ class MealRepositoryImpl : MealRepository {
         reviewTable.deleteWhere { reviewTable.meal_id eq mealId }
         mealTable.deleteWhere { mealTable.meal_id eq mealId }
     }
+
+    override fun searchMeals(category: String?, name: String?, ingredient: String?): List<Meal> {
+        return mealTable
+            .select {
+                mealTable.meal_name.like("%$name%") and
+                        mealTable.meal_category.like("%$category%") and
+                        ingredientTable.ingredient_name.like("%$ingredient%")
+            }
+            .map(::rowToMealDto)
+    }
 }
