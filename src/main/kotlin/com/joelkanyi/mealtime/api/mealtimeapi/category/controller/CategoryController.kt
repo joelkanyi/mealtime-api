@@ -3,10 +3,7 @@ package com.joelkanyi.mealtime.api.mealtimeapi.category.controller
 import com.joelkanyi.mealtime.api.mealtimeapi.category.data.dto.CreateCategoryDto
 import com.joelkanyi.mealtime.api.mealtimeapi.category.model.Category
 import com.joelkanyi.mealtime.api.mealtimeapi.category.service.CategoryService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/categories")
@@ -14,7 +11,8 @@ class CategoryController(
     private val categoryService: CategoryService
 ) {
     @PostMapping
-    fun addCategory(category: CreateCategoryDto) {
+    fun addCategory(
+        @RequestBody category: CreateCategoryDto) {
         categoryService.addCategory(category)
     }
 
@@ -24,7 +22,7 @@ class CategoryController(
     }
 
     @GetMapping("/{id}")
-    fun getCategoryById(id: Int): Category? {
+    fun getCategoryById(@PathVariable id: Int): Category? {
         return categoryService.getCategoryById(id)
     }
 }
