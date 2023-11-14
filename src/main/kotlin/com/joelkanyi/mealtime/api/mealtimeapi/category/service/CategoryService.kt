@@ -20,4 +20,8 @@ class CategoryService(
     fun getCategoryById(id: Int): Category? {
         return categoryRepository.getCategoryById(id)
     }
+
+    fun deleteCategory(id: Int) {
+        return categoryRepository.deleteCategory(id)
+    }
 }

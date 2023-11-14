@@ -4,6 +4,8 @@ import com.joelkanyi.mealtime.api.mealtimeapi.category.data.database.CategoryTab
 import com.joelkanyi.mealtime.api.mealtimeapi.category.data.database.rowToCategory
 import com.joelkanyi.mealtime.api.mealtimeapi.category.data.dto.CreateCategoryDto
 import com.joelkanyi.mealtime.api.mealtimeapi.category.model.Category
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -34,5 +36,11 @@ class CategoryRepositoryImpl : CategoryRepository {
             it[category_name] = category.name
         }
         return "Category created successfully"
+    }
+
+    override fun deleteCategory(id: Int) {
+        categoryTable.deleteWhere {
+            categoryTable.id eq id
+        }
     }
 }

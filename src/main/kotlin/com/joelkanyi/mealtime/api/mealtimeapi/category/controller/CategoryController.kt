@@ -25,4 +25,9 @@ class CategoryController(
     fun getCategoryById(@PathVariable id: Int): Category? {
         return categoryService.getCategoryById(id)
     }
+
+    @DeleteMapping("/{id}")
+    fun deleteCategory(@PathVariable id: Int) {
+        categoryService.deleteCategory(id)
+    }
 }
