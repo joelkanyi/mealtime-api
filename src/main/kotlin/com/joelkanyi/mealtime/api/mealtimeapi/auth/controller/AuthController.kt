@@ -1,9 +1,6 @@
 package com.joelkanyi.mealtime.api.mealtimeapi.auth.controller
 
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.AuthenticationResponse
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.LoginRequest
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.RegisterRequest
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.User
+import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.*
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -33,5 +30,12 @@ class AuthController(
     @GetMapping("user")
     fun getUser(userId: String): User {
         return userService.getUser(userId)
+    }
+
+    @PostMapping("refresh")
+    fun refreshToken(
+        @RequestBody refreshTokenRequest: RefreshTokenRequest
+    ):AuthenticationResponse {
+        return userService.refreshToken(refreshTokenRequest.token)
     }
 }

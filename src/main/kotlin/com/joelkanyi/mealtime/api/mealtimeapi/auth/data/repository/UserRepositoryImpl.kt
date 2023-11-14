@@ -78,4 +78,15 @@ class UserRepositoryImpl(
         return userTable.select { userTable.id eq userId }.map { rowToUser(it) }.firstOrNull()
             ?: throw NoSuchElementException("Could not find a user with id $userId")
     }
+
+    override fun refreshToken(token: String): AuthenticationResponse {
+        val userName = jwtService.extractUserName(token)
+        val userDetails = findByEmail(userName)
+            ?: throw NoSuchElementException("Could not find a user with email $userName")
+        val jwtToken = jwtService.generateToken(userDetails)
+        return AuthenticationResponse(
+            jwtToken,
+            userDetails,
+        )
+    }
 }

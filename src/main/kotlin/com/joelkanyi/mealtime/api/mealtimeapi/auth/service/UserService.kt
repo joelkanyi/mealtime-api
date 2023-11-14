@@ -23,4 +23,8 @@ class UserService(
     fun getUser(userId: String): User {
         return userRepository.getUser(userId)
     }
+
+    fun refreshToken(token: String): AuthenticationResponse {
+        return userRepository.refreshToken(token)
+    }
 }

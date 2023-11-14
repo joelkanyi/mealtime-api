@@ -10,4 +10,5 @@ interface UserRepository  {
     fun register(registerRequest: RegisterRequest): AuthenticationResponse
     fun login(loginRequest: LoginRequest): AuthenticationResponse
     fun getUser(userId: String): User
+    fun refreshToken(token: String): AuthenticationResponse
 }
