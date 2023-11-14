@@ -26,4 +26,10 @@ class MealController(
     fun addMeal(@RequestBody meal: CreateMealDto): String {
         return mealService.addMeal(meal)
     }
+
+    @DeleteMapping("/{mealId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteMeal(@PathVariable mealId: String) {
+        mealService.deleteMeal(mealId)
+    }
 }

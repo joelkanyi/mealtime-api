@@ -15,6 +15,7 @@ import com.joelkanyi.mealtime.api.mealtimeapi.meal.model.*
 import com.joelkanyi.mealtime.api.mealtimeapi.review.data.database.ReviewTable
 import com.joelkanyi.mealtime.api.mealtimeapi.review.data.database.rowToReview
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -97,5 +98,9 @@ class MealRepositoryImpl : MealRepository {
         }
 
         return "Meal added successfully"
+    }
+
+    override fun deleteMeal(mealId: String) {
+        mealTable.deleteWhere { mealTable.meal_id eq mealId }
     }
 }

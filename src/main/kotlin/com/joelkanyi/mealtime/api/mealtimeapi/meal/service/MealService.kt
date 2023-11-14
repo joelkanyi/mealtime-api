@@ -15,4 +15,8 @@ class MealService(
     fun addMeal(meal: CreateMealDto): String {
         return mealRepository.addMeal(meal)
     }
+
+    fun deleteMeal(mealId: String) {
+        mealRepository.deleteMeal(mealId)
+    }
 }

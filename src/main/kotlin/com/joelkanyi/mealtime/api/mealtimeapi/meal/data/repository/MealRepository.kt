@@ -7,4 +7,5 @@ interface MealRepository {
     fun retrieveMeals(): List<Meal>
     fun retrieveMeal(mealId: String): MealDetails
     fun addMeal(meal: CreateMealDto): String
+    fun deleteMeal(mealId: String)
 }
