@@ -3,8 +3,9 @@ package com.joelkanyi.mealtime.api.mealtimeapi.auth.data.repository
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.database.UserTable
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.database.rowToUser
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.*
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.UserData.Companion.toUserData
+import com.joelkanyi.mealtime.api.mealtimeapi.user.model.UserData.Companion.toUserData
 import com.joelkanyi.mealtime.api.mealtimeapi.config.JwtService
+import com.joelkanyi.mealtime.api.mealtimeapi.user.model.UserData
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -16,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 import kotlin.NoSuchElementException
 
-@Repository("user_database")
+@Repository("auth_repository")
 @Transactional
-class UserRepositoryImpl(
+class AuthRepositoryImpl(
     private val passwordEncoder: PasswordEncoder,
     private val jwtService: JwtService,
     private val authenticationManager: AuthenticationManager,
-) : UserRepository {
+) : AuthRepository {
     private val userTable = UserTable
     override fun findByEmail(email: String): User? {
         return userTable.select { userTable.email eq email }.map { rowToUser(it) }.firstOrNull()
@@ -73,11 +74,6 @@ class UserRepositoryImpl(
             jwtToken,
             userFromDb.toUserData(),
         )
-    }
-
-    override fun getUser(userId: String): UserData {
-        return userTable.select { userTable.id eq userId }.map { rowToUser(it) }.firstOrNull()?.toUserData()
-            ?: throw NoSuchElementException("Could not find a user with id $userId")
     }
 
     override fun refreshToken(token: String): AuthenticationResponse {

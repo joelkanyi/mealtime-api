@@ -1,41 +1,35 @@
 package com.joelkanyi.mealtime.api.mealtimeapi.auth.controller
 
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.*
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.service.UserService
+import com.joelkanyi.mealtime.api.mealtimeapi.auth.service.AuthService
+import com.joelkanyi.mealtime.api.mealtimeapi.user.model.UserData
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.lang.IllegalArgumentException
 
 @RestController
 @RequestMapping("api/auth")
 class AuthController(
-    private val userService: UserService
+    private val authService: AuthService
 ) {
     @PostMapping("register")
     @ResponseStatus(HttpStatus.OK)
     fun register(
         @RequestBody registerRequest: RegisterRequest
     ): AuthenticationResponse {
-        return userService.register(registerRequest)
+        return authService.register(registerRequest)
     }
 
     @PostMapping("login")
     fun login(
         @RequestBody loginRequest: LoginRequest
     ): AuthenticationResponse {
-        return userService.login(loginRequest)
-    }
-
-    @GetMapping("user")
-    fun getUser(userId: String): UserData {
-        return userService.getUser(userId)
+        return authService.login(loginRequest)
     }
 
     @PostMapping("refresh")
     fun refreshToken(
         @RequestBody refreshTokenRequest: RefreshTokenRequest
     ):AuthenticationResponse {
-        return userService.refreshToken(refreshTokenRequest.token)
+        return authService.refreshToken(refreshTokenRequest.token)
     }
 }

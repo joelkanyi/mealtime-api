@@ -1,4 +1,6 @@
-package com.joelkanyi.mealtime.api.mealtimeapi.auth.model
+package com.joelkanyi.mealtime.api.mealtimeapi.user.model
+
+import com.joelkanyi.mealtime.api.mealtimeapi.auth.model.User
 
 data class UserData(
     val userId: String?,

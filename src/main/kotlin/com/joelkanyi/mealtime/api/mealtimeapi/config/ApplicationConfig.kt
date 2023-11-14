@@ -1,6 +1,6 @@
 package com.joelkanyi.mealtime.api.mealtimeapi.config
 
-import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.repository.UserRepository
+import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.repository.AuthRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
@@ -14,12 +14,12 @@ import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 class ApplicationConfig(
-   @Lazy private val userRepository: UserRepository
+   @Lazy private val authRepository: AuthRepository
 ) {
     @Bean
     fun userDetailsService(): UserDetailsService {
         return UserDetailsService { username ->
-            userRepository.findByEmail(username) ?: throw NoSuchElementException("Could not find a user with email $username")
+            authRepository.findByEmail(username) ?: throw NoSuchElementException("Could not find a user with email $username")
         }
     }
 
