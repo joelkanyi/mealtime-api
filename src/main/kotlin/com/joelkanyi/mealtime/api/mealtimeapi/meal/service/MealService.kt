@@ -1,5 +1,6 @@
 package com.joelkanyi.mealtime.api.mealtimeapi.meal.service
 
+import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.dto.CreateIngredientDto
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.dto.CreateMealDto
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.repository.MealRepository
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.model.*
@@ -26,5 +27,9 @@ class MealService(
 
     fun getRandomMeal(): MealDetails {
         return mealRepository.getRandomMeal()
+    }
+
+    fun getIngredients(): List<Ingredient> {
+        return mealRepository.getIngredients()
     }
 }

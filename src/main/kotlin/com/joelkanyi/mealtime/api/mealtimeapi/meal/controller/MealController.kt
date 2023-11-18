@@ -1,5 +1,6 @@
 package com.joelkanyi.mealtime.api.mealtimeapi.meal.controller
 
+import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.dto.CreateIngredientDto
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.dto.CreateMealDto
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.model.*
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.service.MealService
@@ -49,5 +50,10 @@ class MealController(
     @GetMapping("/random")
     fun getRandomMeal(): MealDetails {
         return mealService.getRandomMeal()
+    }
+
+    @GetMapping("ingredients")
+    fun getIngredients(): List<Ingredient> {
+        return mealService.getIngredients()
     }
 }

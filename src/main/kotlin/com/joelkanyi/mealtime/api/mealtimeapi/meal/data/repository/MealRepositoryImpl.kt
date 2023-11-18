@@ -9,6 +9,7 @@ import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToIngredient
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.MealTable
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToMealDetailsDto
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToMealDto
+import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.dto.CreateIngredientDto
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.dto.CreateMealDto
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.model.*
 import com.joelkanyi.mealtime.api.mealtimeapi.review.data.database.ReviewTable
@@ -143,5 +144,11 @@ class MealRepositoryImpl : MealRepository {
             .random()
 
         return retrieveMeal(meal.id)
+    }
+
+    override fun getIngredients(): List<Ingredient> {
+        return ingredientTable
+            .selectAll()
+            .map(::rowToIngredients)
     }
 }

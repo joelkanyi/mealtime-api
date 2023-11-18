@@ -10,4 +10,5 @@ interface MealRepository {
     fun deleteMeal(mealId: String)
     fun searchMeals(category: String?, name: String?, ingredient: String?): List<Meal>
     fun getRandomMeal(): MealDetails
+    fun getIngredients(): List<Ingredient>
 }
