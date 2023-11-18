@@ -5,7 +5,7 @@ import com.joelkanyi.mealtime.api.mealtimeapi.meal.model.Meal
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.ResultRow
 
-object FavoritesTable : IntIdTable("favorite") {
+object FavoritesTable : IntIdTable("favorites") {
     val meal_id = varchar("meal_id", 255)
     val user_id = varchar("user_id", 255)
 }
