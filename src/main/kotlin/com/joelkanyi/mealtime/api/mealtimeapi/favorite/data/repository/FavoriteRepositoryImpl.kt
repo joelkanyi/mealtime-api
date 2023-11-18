@@ -40,10 +40,10 @@ class FavoriteRepositoryImpl : FavoriteRepository {
         return "Favorite added"
     }
 
-    override fun deleteFavorite(favoriteId: Int, userId: String) {
+    override fun deleteFavorite(mealId: String, userId: String) {
         favoritesTable
             .deleteWhere {
-                favoritesTable.id eq favoriteId and (favoritesTable.user_id eq userId)
+                favoritesTable.meal_id eq mealId and (favoritesTable.user_id eq userId)
             }
     }
 }

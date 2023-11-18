@@ -13,7 +13,7 @@ interface FavoriteRepository {
     ): String
 
     fun deleteFavorite(
-        favoriteId: Int,
+        mealId: String,
         userId: String
     )
 }

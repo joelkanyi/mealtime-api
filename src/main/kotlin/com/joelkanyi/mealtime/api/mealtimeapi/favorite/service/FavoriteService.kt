@@ -24,11 +24,11 @@ class FavoriteService(
     }
 
     fun deleteFavorite(
-        favoriteId: Int,
+        mealId: String,
         userId: String
     ) {
         favoriteRepository.deleteFavorite(
-            favoriteId = favoriteId,
+            mealId = mealId,
             userId = userId
         )
     }

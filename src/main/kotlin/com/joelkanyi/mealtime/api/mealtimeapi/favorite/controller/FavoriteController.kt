@@ -30,14 +30,14 @@ class FavoriteController(
         )
     }
 
-    @DeleteMapping("/{favoriteId}/user/{userId}")
+    @DeleteMapping("/{mealId}/user/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteFavorite(
-        @PathVariable favoriteId: Int,
+        @PathVariable mealId: String,
         @PathVariable userId: String
     ) {
         favoriteService.deleteFavorite(
-            favoriteId = favoriteId,
+            mealId = mealId,
             userId = userId
         )
     }
