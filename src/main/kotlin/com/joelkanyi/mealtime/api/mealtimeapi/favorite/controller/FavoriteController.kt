@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 class FavoriteController(
     private val favoriteService: FavoriteService
 ) {
-    @GetMapping
+    @GetMapping("/{userId}")
     fun getFavorites(
         @PathVariable userId: String
     ): List<Favorite> {
@@ -24,15 +24,13 @@ class FavoriteController(
     @ResponseStatus(HttpStatus.CREATED)
     fun addFavorite(
         @RequestBody favorite: CreateFavoriteDto,
-        @PathVariable userId: String
     ): String {
         return favoriteService.addFavorite(
             favorite = favorite,
-            userId = userId
         )
     }
 
-    @DeleteMapping("/{favoriteId}")
+    @DeleteMapping("/{favoriteId}/user/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteFavorite(
         @PathVariable favoriteId: Int,

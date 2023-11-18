@@ -7,9 +7,8 @@ import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToCookingIns
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.IngredientTable
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToIngredients
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.MealTable
-import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToMealDetailsDto
-import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToMealDto
-import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.dto.CreateIngredientDto
+import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToMealDetails
+import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToMeal
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.dto.CreateMealDto
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.model.*
 import com.joelkanyi.mealtime.api.mealtimeapi.review.data.database.ReviewTable
@@ -32,14 +31,14 @@ class MealRepositoryImpl : MealRepository {
     override fun retrieveMeals(): List<Meal> {
         return mealTable
             .selectAll()
-            .map(::rowToMealDto)
+            .map(::rowToMeal)
     }
 
     override fun retrieveMeal(mealId: String): MealDetails {
         return mealTable
             .select { mealTable.meal_id eq mealId }
             .map {
-                rowToMealDetailsDto(
+                rowToMealDetails(
                     mealDetailsDtoRow = it,
                     reviewDtos = reviewTable
                         .select { reviewTable.meal_id eq mealId }
@@ -112,7 +111,7 @@ class MealRepositoryImpl : MealRepository {
 
             mealTable
                 .select { mealTable.meal_id inList mealIds }
-                .map(::rowToMealDto)
+                .map(::rowToMeal)
         } else {
             emptyList()
         }
@@ -121,7 +120,7 @@ class MealRepositoryImpl : MealRepository {
         val mealsFromName = if (name != null) {
             mealTable
                 .select { mealTable.meal_name like name }
-                .map(::rowToMealDto)
+                .map(::rowToMeal)
         } else {
             emptyList()
         }
@@ -129,7 +128,7 @@ class MealRepositoryImpl : MealRepository {
         val mealsFromCategory = if (category != null) {
             mealTable
                 .select { mealTable.meal_category like category }
-                .map(::rowToMealDto)
+                .map(::rowToMeal)
         } else {
             emptyList()
         }
@@ -140,7 +139,7 @@ class MealRepositoryImpl : MealRepository {
     override fun getRandomMeal(): MealDetails {
         val meal = mealTable
             .selectAll()
-            .map(::rowToMealDto)
+            .map(::rowToMeal)
             .random()
 
         return retrieveMeal(meal.id)

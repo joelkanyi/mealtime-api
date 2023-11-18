@@ -10,7 +10,6 @@ interface FavoriteRepository {
 
     fun addFavorite(
         favorite: CreateFavoriteDto,
-        userId: String
     ): String
 
     fun deleteFavorite(

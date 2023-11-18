@@ -23,14 +23,14 @@ object MealTable : Table("meal") {
     override val primaryKey = PrimaryKey(meal_id, name = "meal_pk")
 }
 
-fun rowToMealDto(row: ResultRow) = Meal(
+fun rowToMeal(row: ResultRow) = Meal(
     id = row[MealTable.meal_id],
     name = row[MealTable.meal_name],
     image = row[MealTable.meal_image_url],
     category = row[MealTable.meal_category]
 )
 
-fun rowToMealDetailsDto(
+fun rowToMealDetails(
     mealDetailsDtoRow: ResultRow,
     reviewDtos: List<Review>,
     ingredients: List<Ingredient>,

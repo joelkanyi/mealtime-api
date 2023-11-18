@@ -17,11 +17,9 @@ class FavoriteService(
 
     fun addFavorite(
         favorite: CreateFavoriteDto,
-        userId: String
     ): String {
         return favoriteRepository.addFavorite(
             favorite = favorite,
-            userId = userId
         )
     }
 

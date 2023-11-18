@@ -4,6 +4,8 @@ import com.joelkanyi.mealtime.api.mealtimeapi.favorite.data.database.FavoritesTa
 import com.joelkanyi.mealtime.api.mealtimeapi.favorite.data.database.rowToFavorite
 import com.joelkanyi.mealtime.api.mealtimeapi.favorite.data.dto.CreateFavoriteDto
 import com.joelkanyi.mealtime.api.mealtimeapi.favorite.model.Favorite
+import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.MealTable
+import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToMeal
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.springframework.stereotype.Repository
@@ -11,21 +13,26 @@ import org.springframework.stereotype.Repository
 @Repository
 class FavoriteRepositoryImpl : FavoriteRepository {
     private val favoritesTable = FavoritesTable
+    private val mealsTable = MealTable
     override fun retrieveFavorites(userId: String): List<Favorite> {
         return favoritesTable
+            .join(mealsTable, JoinType.INNER, favoritesTable.meal_id, mealsTable.meal_id)
             .select {
                 favoritesTable.user_id eq userId
             }
-            .map { rowToFavorite(it) }
+            .map {
+                rowToFavorite(
+                    row = it,
+                    meal = rowToMeal(it),
+                )
+            }
     }
 
-    override fun addFavorite(favorite: CreateFavoriteDto, userId: String): String {
+    override fun addFavorite(favorite: CreateFavoriteDto): String {
         favoritesTable
             .insert {
                 it[meal_id] = favorite.mealId
-                it[meal_name] = favorite.mealName
-                it[meal_image_url] = favorite.mealImageUrl
-                it[user_id] = userId
+                it[user_id] = favorite.userId
             }
 
         return "Favorite added"
