@@ -6,6 +6,8 @@ import com.joelkanyi.mealtime.api.mealtimeapi.review.data.database.ReviewTable
 import com.joelkanyi.mealtime.api.mealtimeapi.review.data.database.rowToReview
 import com.joelkanyi.mealtime.api.mealtimeapi.review.data.dto.CreateReviewDto
 import com.joelkanyi.mealtime.api.mealtimeapi.review.model.Review
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -54,5 +56,9 @@ class ReviewRepositoryImpl : ReviewRepository {
                 )
             }
             .firstOrNull()
+    }
+
+    override fun deleteReview(id: Int) {
+        reviewTable.deleteWhere { reviewTable.id eq id }
     }
 }

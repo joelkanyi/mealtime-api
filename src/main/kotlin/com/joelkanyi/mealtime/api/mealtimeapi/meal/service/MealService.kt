@@ -23,4 +23,8 @@ class MealService(
     fun searchMeals(category: String?, name: String?, ingredient: String?): List<Meal> {
         return mealRepository.searchMeals(category, name, ingredient)
     }
+
+    fun getRandomMeal(): Meal {
+        return mealRepository.getRandomMeal()
+    }
 }

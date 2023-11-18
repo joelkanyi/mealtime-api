@@ -7,4 +7,5 @@ interface ReviewRepository {
     fun getAllReviews(mealId: String): List<Review>
     fun createReview(review: CreateReviewDto, userId: String, mealId: String): String
     fun getReviewById(id: Int): Review?
+    fun deleteReview(id: Int)
 }

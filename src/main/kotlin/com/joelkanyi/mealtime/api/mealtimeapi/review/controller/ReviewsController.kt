@@ -3,6 +3,7 @@ package com.joelkanyi.mealtime.api.mealtimeapi.review.controller
 import com.joelkanyi.mealtime.api.mealtimeapi.review.data.dto.CreateReviewDto
 import com.joelkanyi.mealtime.api.mealtimeapi.review.model.Review
 import com.joelkanyi.mealtime.api.mealtimeapi.review.service.ReviewService
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -23,6 +24,7 @@ class ReviewsController(
     }
 
     @PostMapping("/{userId}/{mealId}")
+    @ResponseStatus(HttpStatus.CREATED)
     fun addReview(
         @RequestBody review: CreateReviewDto,
         @PathVariable("userId") userId: String,
@@ -33,5 +35,11 @@ class ReviewsController(
             userId = userId,
             mealId = mealId
         )
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteReview(@PathVariable("id") id: Int) {
+        reviewService.deleteReview(id)
     }
 }

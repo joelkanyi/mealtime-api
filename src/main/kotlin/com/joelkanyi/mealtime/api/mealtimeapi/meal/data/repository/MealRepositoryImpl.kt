@@ -2,7 +2,6 @@ package com.joelkanyi.mealtime.api.mealtimeapi.meal.data.repository
 
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.database.UserTable
 import com.joelkanyi.mealtime.api.mealtimeapi.auth.data.database.rowToUserDao
-import com.joelkanyi.mealtime.api.mealtimeapi.category.data.database.CategoryTable
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.CookingInstructionTable
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToCookingInstruction
 import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.IngredientTable
@@ -27,10 +26,7 @@ class MealRepositoryImpl : MealRepository {
     private val mealTable = MealTable
     private val ingredientTable = IngredientTable
     private val cookingInstructionTable = CookingInstructionTable
-    private val categoryTable = CategoryTable
     private val reviewTable = ReviewTable
-    val join =
-        mealTable fullJoin ingredientTable fullJoin cookingInstructionTable fullJoin reviewTable
 
     override fun retrieveMeals(): List<Meal> {
         return mealTable
@@ -138,5 +134,12 @@ class MealRepositoryImpl : MealRepository {
         }
 
         return mealsFromIngredients + mealsFromName + mealsFromCategory
+    }
+
+    override fun getRandomMeal(): Meal {
+        return mealTable
+            .selectAll()
+            .map(::rowToMealDto)
+            .random()
     }
 }

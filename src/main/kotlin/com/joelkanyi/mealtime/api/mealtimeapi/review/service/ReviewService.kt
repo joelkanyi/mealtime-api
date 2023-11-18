@@ -27,4 +27,8 @@ class ReviewService(
             mealId = mealId
         )
     }
+
+    fun deleteReview(id: Int) {
+        reviewRepository.deleteReview(id)
+    }
 }
