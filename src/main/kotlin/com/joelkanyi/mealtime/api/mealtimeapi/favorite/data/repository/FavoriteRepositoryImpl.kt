@@ -9,8 +9,10 @@ import com.joelkanyi.mealtime.api.mealtimeapi.meal.data.database.rowToMeal
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 @Repository
+@Transactional
 class FavoriteRepositoryImpl : FavoriteRepository {
     private val favoritesTable = FavoritesTable
     private val mealsTable = MealTable
