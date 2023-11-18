@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.*
 class ReviewsController(
     private val reviewService: ReviewService
 ) {
-    @GetMapping
-    fun getAllReviews(): List<Review> {
-        return reviewService.getAllReviews()
+    @GetMapping("/{mealId}")
+    fun getAllReviews(
+        @PathVariable("mealId") mealId: String
+    ): List<Review> {
+        return reviewService.getAllReviews(mealId)
     }
 
     @GetMapping("/{id}")
@@ -20,7 +22,7 @@ class ReviewsController(
         return reviewService.getReviewById(id)
     }
 
-    @PostMapping
+    @PostMapping("/{userId}/{mealId}")
     fun addReview(
         @RequestBody review: CreateReviewDto,
         @PathVariable("userId") userId: String,

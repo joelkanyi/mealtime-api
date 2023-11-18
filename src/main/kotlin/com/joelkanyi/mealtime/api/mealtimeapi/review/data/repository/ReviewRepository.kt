@@ -4,7 +4,7 @@ import com.joelkanyi.mealtime.api.mealtimeapi.review.data.dto.CreateReviewDto
 import com.joelkanyi.mealtime.api.mealtimeapi.review.model.Review
 
 interface ReviewRepository {
-    fun getAllReviews(): List<Review>
+    fun getAllReviews(mealId: String): List<Review>
     fun createReview(review: CreateReviewDto, userId: String, mealId: String): String
     fun getReviewById(id: Int): Review?
 }

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service
 class ReviewService(
     private val reviewRepository: ReviewRepository
 ) {
-    fun getAllReviews(): List<Review> {
-        return reviewRepository.getAllReviews()
+    fun getAllReviews(mealId: String): List<Review> {
+        return reviewRepository.getAllReviews(mealId)
     }
 
     fun getReviewById(id: Int): Review? {

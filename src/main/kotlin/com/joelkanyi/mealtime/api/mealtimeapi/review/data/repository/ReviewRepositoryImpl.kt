@@ -17,16 +17,18 @@ import org.springframework.transaction.annotation.Transactional
 class ReviewRepositoryImpl : ReviewRepository {
     private val reviewTable = ReviewTable
     private val userTable = UserTable
-    override fun getAllReviews(): List<Review> {
-        return reviewTable.selectAll().map {
-            rowToReview(
-                row = it,
-                user = userTable
-                    .select { userTable.id eq it[reviewTable.user_id] }
-                    .map(::rowToUserDao)
-                    .first()
-            )
-        }
+    override fun getAllReviews(mealId: String): List<Review> {
+        return reviewTable
+            .select { reviewTable.meal_id eq mealId }
+            .map {
+                rowToReview(
+                    row = it,
+                    user = userTable
+                        .select { userTable.id eq it[reviewTable.user_id] }
+                        .map(::rowToUserDao)
+                        .first()
+                )
+            }
     }
 
     override fun createReview(review: CreateReviewDto, userId: String, mealId: String): String {
