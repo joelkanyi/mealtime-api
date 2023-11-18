@@ -30,7 +30,7 @@ class FavoriteController(
         )
     }
 
-    @DeleteMapping("/{mealId}/user/{userId}")
+    @DeleteMapping("/{mealId}/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteFavorite(
         @PathVariable mealId: String,
