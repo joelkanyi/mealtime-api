@@ -136,10 +136,12 @@ class MealRepositoryImpl : MealRepository {
         return mealsFromIngredients + mealsFromName + mealsFromCategory
     }
 
-    override fun getRandomMeal(): Meal {
-        return mealTable
+    override fun getRandomMeal(): MealDetails {
+        val meal = mealTable
             .selectAll()
             .map(::rowToMealDto)
             .random()
+
+        return retrieveMeal(meal.id)
     }
 }

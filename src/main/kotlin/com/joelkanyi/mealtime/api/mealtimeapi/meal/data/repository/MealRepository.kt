@@ -9,5 +9,5 @@ interface MealRepository {
     fun addMeal(meal: CreateMealDto): String
     fun deleteMeal(mealId: String)
     fun searchMeals(category: String?, name: String?, ingredient: String?): List<Meal>
-    fun getRandomMeal(): Meal
+    fun getRandomMeal(): MealDetails
 }

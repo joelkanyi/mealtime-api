@@ -47,7 +47,7 @@ class MealController(
     }
 
     @GetMapping("/random")
-    fun getRandomMeal(): Meal {
+    fun getRandomMeal(): MealDetails {
         return mealService.getRandomMeal()
     }
 }
