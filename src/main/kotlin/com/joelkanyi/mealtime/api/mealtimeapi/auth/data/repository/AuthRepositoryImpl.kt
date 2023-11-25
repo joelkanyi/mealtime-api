@@ -80,7 +80,7 @@ class AuthRepositoryImpl(
         val userName = jwtService.extractUserName(token)
         val userDetails = findByEmail(userName)
             ?: throw NoSuchElementException("Could not find a user with email $userName")
-        val jwtToken = jwtService.generateToken(userDetails)
+        val jwtToken = jwtService.generateNewTokenAfterExpiration(token)
         return AuthenticationResponse(
             jwtToken,
             userDetails.toUserData(),
