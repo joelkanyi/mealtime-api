@@ -81,11 +81,11 @@ class AuthRepositoryImpl(
     }
 
     override fun refreshToken(token: String): AuthenticationResponse {
-        val userName = jwtService.extractUserName(token)
+        /*val userName = jwtService.extractUserName(token)
         logger.info("Refreshing token for user $userName")
         val userDetails = findByEmail(userName)
             ?: throw NoSuchElementException("Could not find a user with email $userName")
-        logger.info("Refresh token Found user $userDetails")
+        logger.info("Refresh token Found user $userDetails")*/
         return login(LoginRequest("joelkanyi98@gmail.com", "12345678"))
     }
 }
