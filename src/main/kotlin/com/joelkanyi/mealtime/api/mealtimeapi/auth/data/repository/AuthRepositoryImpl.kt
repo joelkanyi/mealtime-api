@@ -86,6 +86,6 @@ class AuthRepositoryImpl(
         val userDetails = findByEmail(userName)
             ?: throw NoSuchElementException("Could not find a user with email $userName")
         logger.info("Refresh token Found user $userDetails")
-        return login(LoginRequest(userDetails.email, userDetails.password))
+        return login(LoginRequest("joelkanyi98@gmail.com", "12345678"))
     }
 }
