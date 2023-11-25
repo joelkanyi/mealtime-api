@@ -66,15 +66,4 @@ object JwtService {
         val keyBytes: ByteArray = Decoders.BASE64.decode(SECRET_KEY)
         return Keys.hmacShaKeyFor(keyBytes)
     }
-
-    fun generateNewTokenAfterExpiration(jwtToken: String): String {
-        val claims = extractAllClaims(jwtToken)
-        return Jwts
-            .builder()
-            .setClaims(claims)
-            .setIssuedAt(Date(System.currentTimeMillis()))
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
-            .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-            .compact()
-    }
 }
