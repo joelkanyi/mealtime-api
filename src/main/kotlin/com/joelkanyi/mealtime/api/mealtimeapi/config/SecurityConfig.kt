@@ -32,12 +32,9 @@ class SecurityConfig(
         return  http
             .csrf()
             .disable()
+            .cors()
+            .disable()
             .exceptionHandling()
-            .accessDeniedHandler { _, response, exception ->
-                response.sendError(
-                    HttpStatus.UNAUTHORIZED.value(), exception.message
-                )
-            }
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .authorizeHttpRequests()
