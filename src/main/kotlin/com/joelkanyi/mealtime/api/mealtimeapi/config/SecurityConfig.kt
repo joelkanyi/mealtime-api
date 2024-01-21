@@ -38,7 +38,7 @@ class SecurityConfig(
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .authorizeHttpRequests()
-            .requestMatchers("api/auth/**")
+            .requestMatchers("/api/auth/**")
             .permitAll()
             .anyRequest()
             .authenticated()
